@@ -1,5 +1,5 @@
-import { FormikErrors, FormikTouched } from "formik";
 import { Text, TextInput, View } from "react-native";
+import { styles } from "./styles";
 
 interface InputProps {
   handleChange: {
@@ -10,21 +10,23 @@ interface InputProps {
     (e: React.ChangeEvent<any>): void;
     <T = string | React.ChangeEvent<any>>(field: T): T extends React.ChangeEvent<any> ? void : (e: string | React.ChangeEvent<any>) => void;
   };
-  values: string,
-  errors: string | undefined,
-  touched: boolean | undefined,
+  values: string;
+  errors: string | undefined;
+  touched: boolean | undefined;
+  placeholder: string;
 }
 
 export function Input(props: InputProps) {
   return (
-    <View style={{ marginBottom: 10 }}>
+    <View>
       <TextInput
-        style={{ borderBottomColor: "black", borderBottomWidth: 1 }}
+        style={styles.campoTexto}
         onChangeText={props.handleChange}
         onBlur={props.handleBlur}
         value={props.values}
+        placeholder={props.placeholder}
       />
-      {props.errors && props.touched ? <Text>{String(props.errors)}</Text> : null}
+      {props.errors && props.touched ? <Text style={styles.mensagemErro}>{props.errors}</Text> : null}
     </View>
   );
 }
