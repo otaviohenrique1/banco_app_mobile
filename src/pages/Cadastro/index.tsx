@@ -7,6 +7,8 @@ import { Botao } from "../../components/Botao";
 import { styles } from "./styles";
 
 const schema = Yup.object().shape({
+  nome: Yup.string()
+    .required("Campo vazio"),
   email: Yup.string()
     .email("Email inválido")
     .required("Campo vazio"),
@@ -17,21 +19,23 @@ const schema = Yup.object().shape({
 });
 
 interface FormTypes {
+  nome: string;
   email: string;
   senha: string;
 }
 
 const valoresIniciais: FormTypes = {
+  nome: "",
   email: "",
   senha: "",
 };
 
-export default function Login() {
+export default function Cadastro() {
   return (
     <Container>
       <View style={styles.container}>
         <View style={styles.areaTitulo}>
-          <Text style={styles.titulo} >Banco app</Text>
+          <Text style={styles.titulo}>Cadastro</Text>
         </View>
         <Formik
           initialValues={valoresIniciais}
@@ -40,6 +44,14 @@ export default function Login() {
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
             <View style={styles.formulario}>
+              <Input
+                handleChange={handleChange("nome")}
+                handleBlur={handleBlur("nome")}
+                values={values.nome}
+                errors={errors.nome}
+                touched={touched.nome}
+                placeholder="Nome"
+              />
               <Input
                 handleChange={handleChange("email")}
                 handleBlur={handleBlur("email")}
@@ -61,14 +73,7 @@ export default function Login() {
                 backgroundColor="blue"
                 textColor="white"
                 onPress={() => handleSubmit()}
-                label="Entrar"
-                marginTop={10}
-              />
-              <Botao
-                backgroundColor="red"
-                textColor="white"
-                onPress={() => {}}
-                label="Cadastrar"
+                label="Salvar"
                 marginTop={10}
               />
             </View>

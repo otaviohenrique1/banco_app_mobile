@@ -14,19 +14,22 @@ interface InputProps {
   errors: string | undefined;
   touched: boolean | undefined;
   placeholder: string;
+  secureTextEntry?: boolean | undefined
 }
 
 export function Input(props: InputProps) {
+  const { handleChange, handleBlur, values, placeholder, secureTextEntry, errors, touched } = props;
   return (
     <View>
       <TextInput
         style={styles.campoTexto}
-        onChangeText={props.handleChange}
-        onBlur={props.handleBlur}
-        value={props.values}
-        placeholder={props.placeholder}
+        onChangeText={handleChange}
+        onBlur={handleBlur}
+        value={values}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
       />
-      {props.errors && props.touched ? <Text style={styles.mensagemErro}>{props.errors}</Text> : null}
+      {errors && touched ? <Text style={styles.mensagemErro}>{errors}</Text> : null}
     </View>
   );
 }
