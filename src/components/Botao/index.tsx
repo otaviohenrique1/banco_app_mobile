@@ -6,12 +6,15 @@ interface BotaoProps {
   backgroundColor: ColorValue;
   textColor: ColorValue;
   label: string;
-  marginTop?: number; 
+  marginTop?: number;
+  marginBotton?: number;
 }
 
 export function Botao(props: BotaoProps) {
-  const { onPress, backgroundColor, textColor, label, marginTop } = props;
-  const botaoStyle = styles(backgroundColor, textColor, (marginTop) ? marginTop : 0)
+  const { onPress, backgroundColor, textColor, label, marginTop, marginBotton } = props;
+  const marginTopCondicional = (marginTop) ? marginTop : 0;
+  const marginBottonCondicional = (marginBotton) ? marginBotton : 0;
+  const botaoStyle = styles(backgroundColor, textColor, marginTopCondicional, marginBottonCondicional)
   return (
     <TouchableOpacity style={botaoStyle.botao} onPress={onPress}>
       <Text style={botaoStyle.botaoTexto}>{label}</Text>

@@ -1,12 +1,13 @@
 import { ColorValue, StyleSheet } from 'react-native';
 
-export const styles = (backgroundColor: ColorValue, textColor: ColorValue, marginTop: number) => StyleSheet.create({
+export const styles = (backgroundColor: ColorValue, textColor: ColorValue, marginTop: number, marginBotton: number) => StyleSheet.create({
   botao: {
     padding: 20,
     backgroundColor: backgroundColor,
     alignItems: "center",
-    marginTop: marginTop,
     borderRadius: 10,
+    marginTop: marginTop,
+    marginBottom: marginBotton,
   },
   botaoTexto: {
     color: textColor,

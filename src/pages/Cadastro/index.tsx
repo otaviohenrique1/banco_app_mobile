@@ -16,18 +16,25 @@ const schema = Yup.object().shape({
     .min(8, "Minimo de 8 caracteres")
     .max(50, "Maximo de 50 caracteres")
     .required("Campo vazio"),
+  confimarSenha: Yup.string()
+    .min(8, "Minimo de 8 caracteres")
+    .max(50, "Maximo de 50 caracteres")
+    .oneOf([Yup.ref('password')], 'Senhas diferentes')
+    .required("Campo vazio"),
 });
 
 interface FormTypes {
   nome: string;
   email: string;
   senha: string;
+  confimarSenha: string;
 }
 
 const valoresIniciais: FormTypes = {
   nome: "",
   email: "",
   senha: "",
+  confimarSenha: "",
 };
 
 export default function Cadastro() {
@@ -67,6 +74,15 @@ export default function Cadastro() {
                 errors={errors.senha}
                 touched={touched.senha}
                 placeholder="Senha"
+                secureTextEntry
+              />
+              <Input
+                handleChange={handleChange("confimarSenha")}
+                handleBlur={handleBlur("confimarSenha")}
+                values={values.confimarSenha}
+                errors={errors.confimarSenha}
+                touched={touched.confimarSenha}
+                placeholder="Confimar senha"
                 secureTextEntry
               />
               <Botao
