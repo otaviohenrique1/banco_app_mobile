@@ -2,8 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   botao: {
-    alignItems: "center",
-    marginHorizontal: 5,
-    width: 68,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  botaoTexto: {
+    fontSize: 20
   },
 });

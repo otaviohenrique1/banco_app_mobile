@@ -5,13 +5,14 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import { Text, View } from 'react-native';
 import { Header } from './components/Header';
+import Conta from './pages/Conta';
 
 const Stack = createNativeStackNavigator();
 
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomePage">
+      <Stack.Navigator initialRouteName="Conta">
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
         <Stack.Screen name="HomePage" component={HomePage} options={{
@@ -19,6 +20,7 @@ export function AppRoutes() {
           // headerBackground: () => (<Header/>)
           // headerStyle: { backgroundColor: "cadetblue" },
         }} />
+        <Stack.Screen name="Conta" component={Conta} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
