@@ -5,13 +5,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import { BotaoIconeTexto } from '../../components/BotaoIconeTexto';
 
 export default function HomePage() {
   return (
     <Container>
-      <Text>{"("}Foto{")"} {"((o)"} {"(?)"} {"(V)"}</Text>
-      <Text>Olá, Usuario</Text>
-      <Text>-------------------------</Text>
       <View style={{
         borderBottomColor: "black",
         borderBottomWidth: 1,
@@ -24,10 +22,13 @@ export default function HomePage() {
         </TouchableOpacity>
         <Text>R$ 1000,00</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+          <BotaoIconeTexto
+            icone={<MaterialCommunityIcons name="cellphone-arrow-down" size={24} color="white" style={{ padding: 20, backgroundColor: "gray", borderRadius: 100 }} />}
+            listaTexto={["Caixinhas e", "Investir"]}
+          />
           <TouchableOpacity style={{ alignItems: "center", marginRight: 10 }}>
             <MaterialCommunityIcons name="cellphone-arrow-down" size={24} color="white" style={{ padding: 20, backgroundColor: "gray", borderRadius: 100 }} />
-            <Text>Área Pix e</Text>
-            <Text>Transferir</Text>
+            <Text>Área Pix e{"\n"}Transferir</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ alignItems: "center", marginRight: 10 }}>
             <AntDesign name="barcode" size={24} color="white" style={{ padding: 20, backgroundColor: "gray", borderRadius: 100 }} />
@@ -35,8 +36,7 @@ export default function HomePage() {
           </TouchableOpacity>
           <TouchableOpacity style={{ alignItems: "center" }}>
             <FontAwesome6 name="circle-dollar-to-slot" size={24} color="white" style={{ padding: 20, backgroundColor: "gray", borderRadius: 100 }} />
-            <Text>Pegar</Text>
-            <Text>empréstimo</Text>
+            <Text style={{ alignItems: "center" }}>{"     "}Pegar{"\n"}emprestado</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{ alignItems: "center" }}>
             <MaterialCommunityIcons name="cellphone" size={24} color="white" style={{ padding: 20, backgroundColor: "gray", borderRadius: 100 }} />
