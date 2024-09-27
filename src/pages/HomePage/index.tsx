@@ -9,15 +9,22 @@ import { BotaoIconeTexto } from '../../components/BotaoIconeTexto';
 import Sessao from '../../components/Sessao';
 import BotaoSeta from '../../components/BotaoSeta';
 import { styles } from './styles';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackRootStaticParamList } from '../../routes';
 
-export default function HomePage() {
+type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "HomePage">;
+
+export default function HomePage({ navigation }: Props) {
   const iconeStyle = { padding: 20, backgroundColor: "gray", borderRadius: 100, };
   return (
     <Container>
-      <Sessao>
+      <Sessao
+        bordaEmBaixo
+        bordaEmCima={false}
+      >
         <BotaoSeta
           label="Conta"
-          onPress={() => { }}
+          onPress={() => navigation.navigate("Conta")}
         />
         <Text>R$ 1000,00</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollView}>
@@ -55,7 +62,10 @@ export default function HomePage() {
           marginTop={10}
         />
       </Sessao>
-      <Sessao>
+      <Sessao
+        bordaEmBaixo
+        bordaEmCima={false}
+      >
         <BotaoSeta
           label="Cartao de crédito"
           onPress={() => { }}
@@ -72,7 +82,10 @@ export default function HomePage() {
           marginTop={10}
         />
       </Sessao>
-      <Sessao>
+      <Sessao
+        bordaEmBaixo
+        bordaEmCima={false}
+      >
         <BotaoSeta
           label="Empréstimo"
           onPress={() => { }}

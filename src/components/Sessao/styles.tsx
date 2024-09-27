@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+export const styles = (bordaEmBaixo: boolean, bordaEmCima: boolean) => StyleSheet.create({
   sessao: {
     borderBottomColor: "black",
-    borderBottomWidth: 1,
-    width: "100%",
-    paddingVertical: 10
+    borderTopColor: "black",
+    borderBottomWidth: bordaEmBaixo ? 1 : 0,
+    borderTopWidth: bordaEmCima ? 1 : 0,
+    paddingVertical: 10,
   },
 });

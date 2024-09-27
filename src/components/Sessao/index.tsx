@@ -4,12 +4,15 @@ import { ReactNode } from 'react';
 
 interface SessaoProps {
   children: ReactNode;
+  bordaEmBaixo: boolean; 
+  bordaEmCima: boolean; 
 }
 
 export default function Sessao(props: SessaoProps) {
-  const { children } = props;
+  const { children, bordaEmBaixo, bordaEmCima } = props;
+  const styleCondicional = styles(bordaEmBaixo, bordaEmCima);
   return (
-    <View style={styles.sessao}>
+    <View style={styleCondicional.sessao}>
       {children}
     </View>
   );

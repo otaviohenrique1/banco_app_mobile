@@ -7,12 +7,19 @@ import { Text, View } from 'react-native';
 import { Header } from './components/Header';
 import Conta from './pages/Conta';
 
-const Stack = createNativeStackNavigator();
+export type NativeStackRootStaticParamList = {
+  Login: undefined;
+  Cadastro: undefined;
+  HomePage: undefined;
+  Conta: undefined;
+}
+
+const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Conta">
+      <Stack.Navigator initialRouteName="HomePage">
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
         <Stack.Screen name="HomePage" component={HomePage} options={{
