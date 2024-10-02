@@ -57,7 +57,7 @@ export default function HomePage({ navigation }: Props) {
         <Botao
           backgroundColor="blue"
           textColor="white"
-          onPress={() => { }}
+          onPress={() => navigation.navigate("MeusCartoes")}
           label="Meus cartões"
           marginTop={10}
         />

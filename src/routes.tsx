@@ -6,12 +6,16 @@ import Cadastro from './pages/Cadastro';
 import { Text, View } from 'react-native';
 import { Header } from './components/Header';
 import Conta from './pages/Conta';
+import MeusCartoes from './pages/MeusCartoes';
+import CartaoFisico from './pages/CartaoFisico';
 
 export type NativeStackRootStaticParamList = {
   Login: undefined;
   Cadastro: undefined;
   HomePage: undefined;
   Conta: undefined;
+  MeusCartoes: undefined;
+  CartaoFisico: undefined;
 }
 
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
@@ -28,6 +32,8 @@ export function AppRoutes() {
           // headerStyle: { backgroundColor: "cadetblue" },
         }} />
         <Stack.Screen name="Conta" component={Conta} options={{ headerShown: false }} />
+        <Stack.Screen name="MeusCartoes" component={MeusCartoes} options={{ headerShown: false }} />
+        <Stack.Screen name="CartaoFisico" component={CartaoFisico} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
