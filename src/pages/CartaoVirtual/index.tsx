@@ -13,9 +13,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NativeStackRootStaticParamList } from '../../routes';
 import Constants from "expo-constants";
 
-type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "CartaoFisico">;
+type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "CartaoVirtual">;
 
-export default function CartaoFisico({ navigation }: Props) {
+export default function CartaoVirtual({ navigation }: Props) {
   return (
     <Container>
       <View style={{ marginTop: Constants.statusBarHeight, }}>
@@ -30,7 +30,7 @@ export default function CartaoFisico({ navigation }: Props) {
             bordaEmBaixo={false}
             bordaEmCima={false}
           >
-            <Text>Cartão físico</Text>
+            <Text>Cartão virtual</Text>
           </Sessao>
           <Sessao
             bordaEmBaixo={false}
