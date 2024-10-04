@@ -1,27 +1,24 @@
-import { Alert, Modal, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import Container from '../../components/Container';
-import Sessao from '../../components/Sessao';
-import BotaoSeta from '../../components/BotaoSeta';
-import { BotaoIconeTexto } from '../../components/BotaoIconeTexto';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Foundation from '@expo/vector-icons/Foundation';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NativeStackRootStaticParamList } from '../../routes';
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import Container from "../../components/Container";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackRootStaticParamList } from "../../routes";
 import Constants from "expo-constants";
-import { ListaCartoesTypes, NovoCartao } from '../../components/NovoCartao';
-import { useState } from 'react';
+import { ListaCartoesTypes, NovoCartao } from "../../components/NovoCartao";
+import { useState } from "react";
+import { geraNumeroCartao } from "../../utils";
+import { FormikHelpers } from "formik";
+import { ModalCartao } from "../../components/ModalCartao";
 
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "MeusCartoes">;
 
 export default function MeusCartoes({ navigation }: Props) {
-  const listaCartaoFisico: ListaCartoesTypes[] = [];
-  const listaCartaoTemporario: ListaCartoesTypes[] = [];
-  const listaCartaoVirtual: ListaCartoesTypes[] = [];
-  const [modalVisible, setModalVisible] = useState(false);
+  const [listaCartaoFisico, setListaCartaoFisico] = useState<ListaCartoesTypes[]>([]);
+  const [listaCartaoTemporario, setListaCartaoTemporario] = useState<ListaCartoesTypes[]>([]);
+  const [listaCartaoVirtual, setListaCartaoVirtual] = useState<ListaCartoesTypes[]>([]);
+  const [modalVisible1, setModalVisible1] = useState<boolean>(false);
+  const [modalVisible2, setModalVisible2] = useState<boolean>(false);
+  const [modalVisible3, setModalVisible3] = useState<boolean>(false);
 
   return (
     <Container>
@@ -30,75 +27,62 @@ export default function MeusCartoes({ navigation }: Props) {
           <TouchableOpacity style={{}} onPress={() => navigation.goBack()}>
             <Ionicons name="chevron-back-sharp" size={24} color="black" />
           </TouchableOpacity>
-          <Text>[{modalVisible}]</Text>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-              setModalVisible(!modalVisible);
-            }}>
-            <View style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 22,
-            }}>
-              <View style={{
-                margin: 20,
-                backgroundColor: 'white',
-                borderRadius: 20,
-                padding: 35,
-                alignItems: 'center',
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-                elevation: 5,
-              }}>
-                <Text style={{
-                  marginBottom: 15,
-                  textAlign: 'center'
-                }}>Hello World!</Text>
-                <Pressable
-                  style={[{ backgroundColor: '#F194FF' }, { backgroundColor: '#2196F3' }]}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  <Text style={{
-                    color: 'white',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                  }}>Hide Modal</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
           <NovoCartao
             destino="CartaoFisico"
             listaCartoes={listaCartaoFisico}
             navigation={navigation}
             titulo="Cartão Fisíco"
-            listaCartoesBotaoAdicionar={() => navigation.navigate("ModalScreen")}
+            listaCartoesBotaoAdicionar={() => setModalVisible1(true)}
           />
           <NovoCartao
             destino="CartaoTemporario"
             listaCartoes={listaCartaoTemporario}
             navigation={navigation}
             titulo="Cartão Temporário"
-            listaCartoesBotaoAdicionar={() => { Alert.alert("asd"); }}
+            listaCartoesBotaoAdicionar={() => setModalVisible2(true)}
           />
           <NovoCartao
             destino="CartaoVirtual"
             listaCartoes={listaCartaoVirtual}
             navigation={navigation}
             titulo="Cartão Virtual"
-            listaCartoesBotaoAdicionar={() => setModalVisible(true)}
+            listaCartoesBotaoAdicionar={() => setModalVisible3(true)}
           />
         </View>
       </ScrollView>
+      <ModalCartao
+        modalVisible={modalVisible1}
+        setModalVisible={setModalVisible1}
+        onSubmit={values => {
+          setListaCartaoFisico([...listaCartaoFisico, {
+            nome: values.nome,
+            numero: `...${geraNumeroCartao(true)}`
+          }])
+          setModalVisible1(!modalVisible1);
+        }}
+      />
+      <ModalCartao
+        modalVisible={modalVisible2}
+        setModalVisible={setModalVisible2}
+        onSubmit={values => {
+          setListaCartaoTemporario([...listaCartaoTemporario, {
+            nome: values.nome,
+            numero: `...${geraNumeroCartao(true)}`
+          }])
+          setModalVisible2(!modalVisible2);
+        }}
+      />
+      <ModalCartao
+        modalVisible={modalVisible3}
+        setModalVisible={setModalVisible3}
+        onSubmit={values => {
+          setListaCartaoVirtual([...listaCartaoVirtual, {
+            nome: values.nome,
+            numero: `...${geraNumeroCartao(true)}`
+          }])
+          setModalVisible3(!modalVisible3);
+        }}
+      />
     </Container>
   );
 }

@@ -1,24 +1,14 @@
-import { GestureResponderEvent, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import Container from '../../components/Container';
+import { GestureResponderEvent, Text, TouchableOpacity } from 'react-native';
 import Sessao from '../../components/Sessao';
-import BotaoSeta from '../../components/BotaoSeta';
-import { BotaoIconeTexto } from '../../components/BotaoIconeTexto';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Foundation from '@expo/vector-icons/Foundation';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NativeStackRootStaticParamList } from '../../routes';
+import { destino } from '../../types';
+import { NovoCartaoItem } from '../NovoCartaoItem';
 
 export interface ListaCartoesTypes {
   // id: number;
   nome: string;
   numero: string;
 }
-
-type destino = "CartaoFisico" | "CartaoTemporario" | "CartaoVirtual"
 
 interface NovoCartaoProps {
   destino: destino;
@@ -42,7 +32,7 @@ export function NovoCartao(props: NovoCartaoProps) {
             <NovoCartaoItem
               destino={destino}
               navigation={navigation}
-              key={`${item.nome} . ${index}`}
+              key={`${item.nome}-${index}`}
               nome={item.nome}
               numero={item.numero}
             />
@@ -54,29 +44,5 @@ export function NovoCartao(props: NovoCartaoProps) {
         <AntDesign name="plus" size={24} color="black" />
       </TouchableOpacity>
     </Sessao>
-  );
-}
-
-interface NovoCartaoItemProps {
-  destino: destino
-  navigation: any;
-  nome: string;
-  numero: string;
-};
-
-export function NovoCartaoItem(props: NovoCartaoItemProps) {
-  const { nome, numero, destino, navigation } = props;
-
-  return (
-    <TouchableOpacity style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginVertical: 10 }} onPress={() => navigation.navigate(destino)}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <AntDesign name="creditcard" size={24} color="black" style={{ marginRight: 20 }} />
-        <View>
-          <Text>{nome}</Text>
-          <Text>{numero}</Text>
-        </View>
-      </View>
-      <AntDesign name="right" size={20} color="black" />
-    </TouchableOpacity>
   );
 }

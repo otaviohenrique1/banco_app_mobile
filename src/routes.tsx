@@ -20,18 +20,6 @@ export type NativeStackRootStaticParamList = {
   CartaoFisico: undefined;
   CartaoVirtual: undefined;
   CartaoTemporario: undefined;
-  ModalScreen: undefined;
-}
-
-type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "ModalScreen">;
-
-export function ModalScreen({ navigation }: Props) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
-      <Button onPress={() => navigation.goBack()} title="Dismiss" />
-    </View>
-  );
 }
 
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
@@ -52,9 +40,6 @@ export function AppRoutes() {
         <Stack.Screen name="CartaoFisico" component={CartaoFisico} options={{ headerShown: false }} />
         <Stack.Screen name="CartaoVirtual" component={CartaoVirtual} options={{ headerShown: false }} />
         <Stack.Screen name="CartaoTemporario" component={CartaoTemporario} options={{ headerShown: false }} />
-        <Stack.Group screenOptions={{ presentation: 'modal' }}>
-          <Stack.Screen name="ModalScreen" component={ModalScreen} />
-        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );
