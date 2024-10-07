@@ -1,10 +1,11 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 export interface CartaoTypes {
-  nome: string,
-  numero: string,
-  cvv: string,
-  validade: string,
+  nome: string;
+  numero: string;
+  cvv: string;
+  validade: string;
+  tipo: string;
 }
 
 type PropsCartaoContext = { 
