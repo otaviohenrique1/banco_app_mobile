@@ -10,6 +10,7 @@ import MeusCartoes from './pages/MeusCartoes';
 import CartaoFisico from './pages/CartaoFisico';
 import CartaoVirtual from './pages/CartaoVirtual';
 import CartaoTemporario from './pages/CartaoTemporario';
+import Cartao from './pages/Cartao';
 
 export type NativeStackRootStaticParamList = {
   Login: undefined;
@@ -20,6 +21,7 @@ export type NativeStackRootStaticParamList = {
   CartaoFisico: undefined;
   CartaoVirtual: undefined;
   CartaoTemporario: undefined;
+  Cartao: undefined;
 }
 
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
@@ -27,7 +29,7 @@ const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MeusCartoes">
+      <Stack.Navigator initialRouteName="Cartao">
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
         <Stack.Screen name="HomePage" component={HomePage} options={{
@@ -40,6 +42,7 @@ export function AppRoutes() {
         <Stack.Screen name="CartaoFisico" component={CartaoFisico} options={{ headerShown: false }} />
         <Stack.Screen name="CartaoVirtual" component={CartaoVirtual} options={{ headerShown: false }} />
         <Stack.Screen name="CartaoTemporario" component={CartaoTemporario} options={{ headerShown: false }} />
+        <Stack.Screen name="Cartao" component={Cartao} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

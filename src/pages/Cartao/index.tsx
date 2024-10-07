@@ -1,27 +1,22 @@
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Container from '../../components/Container';
 import Sessao from '../../components/Sessao';
-import BotaoSeta from '../../components/BotaoSeta';
 import { BotaoIconeTexto } from '../../components/BotaoIconeTexto';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Foundation from '@expo/vector-icons/Foundation';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Octicons from '@expo/vector-icons/Octicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NativeStackRootStaticParamList } from '../../routes';
-import Constants from "expo-constants";
+import { styles } from './styles';
 
-type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "CartaoFisico">;
+type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Cartao">;
 
-export default function CartaoFisico({ navigation }: Props) {
-  const iconeStyle = { padding: 20, backgroundColor: "gray", borderRadius: 100, };
+export default function Cartao({ navigation }: Props) {
 
   return (
     <Container>
-      <View style={{ marginTop: Constants.statusBarHeight, }}>
+      <View style={styles.container}>
         <Sessao
           bordaEmBaixo={false}
           bordaEmCima={false}
@@ -33,20 +28,22 @@ export default function CartaoFisico({ navigation }: Props) {
             <TouchableOpacity style={{}} onPress={() => navigation.goBack()}>
               <Ionicons name="chevron-back-sharp" size={24} color="black" />
             </TouchableOpacity>
-            <AntDesign name="creditcard" size={40} color="black" style={{ marginTop: 20 }} />
-            <Text>Nome</Text>
+            <View style={styles.cartao}>
+              <AntDesign name="creditcard" size={200} color="black" style={styles.iconeCartao} />
+            </View>
+            <Text style={styles.dado}>Nome</Text>
           </Sessao>
           <Sessao
             bordaEmBaixo={false}
             bordaEmCima={false}
           >
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+            <View style={styles.numero}>
               <View>
                 <Text>Numero</Text>
-                <Text>5544 9998 7221 6633</Text>
+                <Text style={styles.dado}>5544 9998 7221 6633</Text>
               </View>
-              <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={() => { }}>
-                <FontAwesome6 name="copy" size={24} color="black" style={{ marginRight: 5 }} />
+              <TouchableOpacity style={styles.botaoCopiar} onPress={() => { }}>
+                <FontAwesome6 name="copy" size={24} color="black" style={styles.botaoCopiarIcone} />
                 <Text>Copiar</Text>
               </TouchableOpacity>
             </View>
@@ -55,14 +52,14 @@ export default function CartaoFisico({ navigation }: Props) {
             bordaEmBaixo={true}
             bordaEmCima={false}
           >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={{ marginRight: 70 }}>
+            <View style={styles.sessao}>
+              <View style={styles.validade}>
                 <Text>Validade</Text>
-                <Text>09/32</Text>
+                <Text style={styles.dado}>09/32</Text>
               </View>
               <View>
                 <Text>CVV</Text>
-                <Text>888</Text>
+                <Text style={styles.dado}>888</Text>
               </View>
             </View>
           </Sessao>
@@ -70,30 +67,30 @@ export default function CartaoFisico({ navigation }: Props) {
             bordaEmBaixo={false}
             bordaEmCima={false}
           >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={{ marginRight: 53 }}>
+            <View style={styles.sessao}>
+              <View style={styles.mastercard}>
                 <Text>Mastercard</Text>
-                <Text>Gold</Text>
+                <Text style={styles.dado}>Gold</Text>
               </View>
               <View>
                 <Text>Função</Text>
-                <Text>Débito crédito</Text>
+                <Text style={styles.dado}>Débito e Crédito</Text>
               </View>
             </View>
           </Sessao>
         </Sessao>
         <Sessao
-          bordaEmBaixo={true}
+          bordaEmBaixo={false}
           bordaEmCima={false}
         >
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-evenly" }}>
+          <View style={styles.areaBotoes}>
             <BotaoIconeTexto
-              icone={<Octicons name="blocked" size={24} color="white" style={iconeStyle} />}
+              icone={<Octicons name="blocked" size={24} color="white" style={styles.iconeStyle} />}
               listaTexto={["Bloquear"]}
               onPress={() => { }}
             />
             <BotaoIconeTexto
-              icone={<Octicons name="gear" size={24} color="white" style={iconeStyle} />}
+              icone={<Octicons name="gear" size={24} color="white" style={styles.iconeStyle} />}
               listaTexto={["Configurar"]}
               onPress={() => { }}
             />

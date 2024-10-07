@@ -5,9 +5,11 @@ import { destino } from '../../types';
 import { NovoCartaoItem } from '../NovoCartaoItem';
 
 export interface ListaCartoesTypes {
-  // id: number;
+  id?: number | undefined;
   nome: string;
   numero: string;
+  cvv: string;
+  validade: string;
 }
 
 interface NovoCartaoProps {

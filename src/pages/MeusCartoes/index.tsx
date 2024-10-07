@@ -6,7 +6,7 @@ import { NativeStackRootStaticParamList } from "../../routes";
 import Constants from "expo-constants";
 import { ListaCartoesTypes, NovoCartao } from "../../components/NovoCartao";
 import { useState } from "react";
-import { geraNumeroCartao } from "../../utils";
+import { geraNumeroCartao, geraNumeroCVV } from "../../utils";
 import { FormikHelpers } from "formik";
 import { ModalCartao } from "../../components/ModalCartao";
 
@@ -50,35 +50,44 @@ export default function MeusCartoes({ navigation }: Props) {
           />
         </View>
       </ScrollView>
+      {/* Arrumar */}
       <ModalCartao
         modalVisible={modalVisible1}
         setModalVisible={setModalVisible1}
         onSubmit={values => {
           setListaCartaoFisico([...listaCartaoFisico, {
             nome: values.nome,
-            numero: `...${geraNumeroCartao(true)}`
+            numero: `...${geraNumeroCartao().substring(14)}`,
+            cvv: geraNumeroCVV(),
+            validade: "06/32",
           }])
           setModalVisible1(!modalVisible1);
         }}
       />
+      {/* Arrumar */}
       <ModalCartao
         modalVisible={modalVisible2}
         setModalVisible={setModalVisible2}
         onSubmit={values => {
           setListaCartaoTemporario([...listaCartaoTemporario, {
             nome: values.nome,
-            numero: `...${geraNumeroCartao(true)}`
+            numero: `...${geraNumeroCartao().substring(14)}`,
+            cvv: geraNumeroCVV(),
+            validade: "06/32",
           }])
           setModalVisible2(!modalVisible2);
         }}
       />
+      {/* Arrumar */}
       <ModalCartao
         modalVisible={modalVisible3}
         setModalVisible={setModalVisible3}
         onSubmit={values => {
           setListaCartaoVirtual([...listaCartaoVirtual, {
             nome: values.nome,
-            numero: `...${geraNumeroCartao(true)}`
+            numero: `...${geraNumeroCartao().substring(14)}`,
+            cvv: geraNumeroCVV(),
+            validade: "06/32",
           }])
           setModalVisible3(!modalVisible3);
         }}

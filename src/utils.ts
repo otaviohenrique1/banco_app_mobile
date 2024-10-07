@@ -1,29 +1,31 @@
-export function geraNumeroAleatorio() {
-  return Math.round(Math.random() * 9);
+export function geraNumeroAleatorio(): string {
+  const numero = Math.round(Math.random() * 9999).toString();
+  if(numero.length === 3) {
+    return `0${numero}`;
+  } else if(numero.length === 2) {
+    return `00${numero}`;
+  } else if(numero.length === 1) {
+    return `000${numero}`;
+  }
+  return numero;
 }
 
-export function geraNumeroCartao(esconde: boolean) {
+// Arrumar
+export function geraNumeroCartao(): string {
   const n1 = geraNumeroAleatorio();
   const n2 = geraNumeroAleatorio();
   const n3 = geraNumeroAleatorio();
   const n4 = geraNumeroAleatorio();
-  
-  const n5 = geraNumeroAleatorio();
-  const n6 = geraNumeroAleatorio();
-  const n7 = geraNumeroAleatorio();
-  const n8 = geraNumeroAleatorio();
+  return `${n1} ${n2} ${n3} ${n4}`;
+}
 
-  const n9 = geraNumeroAleatorio();
-  const n10 = geraNumeroAleatorio();
-  const n11 = geraNumeroAleatorio();
-  const n12 = geraNumeroAleatorio();
-
-  const n13 = geraNumeroAleatorio();
-  const n14 = geraNumeroAleatorio();
-  const n15 = geraNumeroAleatorio();
-  const n16 = geraNumeroAleatorio();
-  if(esconde) {
-    return `${n13}${n14}${n15}${n16}`;
+// Arrumar
+export function geraNumeroCVV(): string {
+  const numero = Math.round(Math.random() * 9).toString();
+  if(numero.length === 3) {
+    return `0${numero}`;
+  } else if(numero.length === 2) {
+    return `00${numero}`;
   }
-  return `${n1}${n2}${n3}${n4} ${n5}${n6}${n7}${n8} ${n9}${n10}${n11}${n12} ${n13}${n14}${n15}${n16}`;
+  return numero;
 }
