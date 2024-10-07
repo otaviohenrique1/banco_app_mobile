@@ -21,7 +21,12 @@ export type NativeStackRootStaticParamList = {
   CartaoFisico: undefined;
   CartaoVirtual: undefined;
   CartaoTemporario: undefined;
-  Cartao: undefined;
+  Cartao: {
+    nome: string,
+    numero: string,
+    cvv: string,
+    validade: string,
+  };
 }
 
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
@@ -29,7 +34,7 @@ const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Cartao">
+      <Stack.Navigator initialRouteName="MeusCartoes">
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
         <Stack.Screen name="HomePage" component={HomePage} options={{

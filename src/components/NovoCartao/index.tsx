@@ -5,7 +5,7 @@ import { destino } from '../../types';
 import { NovoCartaoItem } from '../NovoCartaoItem';
 
 export interface ListaCartoesTypes {
-  id?: number | undefined;
+  id?: number | string | undefined;
   nome: string;
   numero: string;
   cvv: string;
@@ -13,7 +13,7 @@ export interface ListaCartoesTypes {
 }
 
 interface NovoCartaoProps {
-  destino: destino;
+  destino: "Cartao";
   navigation: any;
   titulo: string;
   listaCartoes: ListaCartoesTypes[];

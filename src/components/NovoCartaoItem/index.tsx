@@ -4,7 +4,7 @@ import { destino } from '../../types';
 import { styles } from './styles';
 
 interface NovoCartaoItemProps {
-  destino: destino
+  destino: "Cartao"
   navigation: any;
   nome: string;
   numero: string;
@@ -16,7 +16,7 @@ export function NovoCartaoItem(props: NovoCartaoItemProps) {
   return (
     <TouchableOpacity
       style={styles.botao}
-      onPress={() => navigation.navigate(destino)}
+      onPress={() => navigation.navigate(destino, {})}
     >
       <View style={styles.botaoContainer}>
         <AntDesign name="creditcard" size={24} color="black" style={styles.icone} />

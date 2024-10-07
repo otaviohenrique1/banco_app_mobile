@@ -58,7 +58,7 @@ export function ModalCartao(props: ModalCartaoProps) {
                   touched={touched.nome}
                   placeholder="Nome"
                 />
-                <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+                <View style={styles.areaBotao}>
                   <TouchableOpacity
                     style={styles.botao}
                     onPress={() => handleSubmit()}>

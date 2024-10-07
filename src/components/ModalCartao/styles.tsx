@@ -32,6 +32,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
+  areaBotao: {
+    flexDirection: "row",
+    justifyContent: "flex-end"
+  },
   botao: {
     backgroundColor: "blue",
     borderRadius: 5,

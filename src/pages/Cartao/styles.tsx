@@ -3,7 +3,8 @@ import Constants from "expo-constants";
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
+    // marginTop: Constants.statusBarHeight,
+    marginTop: 17,
   },
   cartao: {
     alignItems: "center",
