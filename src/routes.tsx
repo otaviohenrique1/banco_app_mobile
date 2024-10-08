@@ -22,10 +22,7 @@ export type NativeStackRootStaticParamList = {
   CartaoVirtual: undefined;
   CartaoTemporario: undefined;
   Cartao: {
-    nome: string,
-    numero: string,
-    cvv: string,
-    validade: string,
+    id: string,
   };
 }
 

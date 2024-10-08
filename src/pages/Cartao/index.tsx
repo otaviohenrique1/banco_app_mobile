@@ -9,10 +9,30 @@ import Octicons from '@expo/vector-icons/Octicons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NativeStackRootStaticParamList } from '../../routes';
 import { styles } from './styles';
+import { useContext, useEffect, useState } from 'react';
+import CartaoContext, { CartaoTypes } from '../../context/cartao';
 
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Cartao">;
 
-export default function Cartao({ navigation }: Props) {
+export default function Cartao({ route, navigation }: Props) {
+  const { id } = route.params;
+  const valoresIniciais = {
+    id: "",
+    nome: "",
+    numero: "",
+    cvv: "",
+    validade: "",
+    tipo: "",
+  };
+  const [data, setData] = useState<CartaoTypes>(valoresIniciais);
+  const { listaCartoes } = useContext(CartaoContext);
+
+  useEffect(() => {
+    const dados = listaCartoes.find((item) => item.id === id);
+    const dadosValidados = (dados) ? dados : valoresIniciais;
+    setData(dadosValidados);
+  }, [])
+  
 
   return (
     <Container>
@@ -31,7 +51,7 @@ export default function Cartao({ navigation }: Props) {
             <View style={styles.cartao}>
               <AntDesign name="creditcard" size={200} color="black" style={styles.iconeCartao} />
             </View>
-            <Text style={styles.dado}>Nome</Text>
+            <Text style={styles.dado}>{data.nome}</Text>
           </Sessao>
           <Sessao
             bordaEmBaixo={false}
@@ -40,7 +60,7 @@ export default function Cartao({ navigation }: Props) {
             <View style={styles.numero}>
               <View>
                 <Text>Numero</Text>
-                <Text style={styles.dado}>5544 9998 7221 6633</Text>
+                <Text style={styles.dado}>{data.numero}</Text>
               </View>
               <TouchableOpacity style={styles.botaoCopiar} onPress={() => { }}>
                 <FontAwesome6 name="copy" size={24} color="black" style={styles.botaoCopiarIcone} />
@@ -55,11 +75,11 @@ export default function Cartao({ navigation }: Props) {
             <View style={styles.sessao}>
               <View style={styles.validade}>
                 <Text>Validade</Text>
-                <Text style={styles.dado}>09/32</Text>
+                <Text style={styles.dado}>{data.validade}</Text>
               </View>
               <View>
                 <Text>CVV</Text>
-                <Text style={styles.dado}>888</Text>
+                <Text style={styles.dado}>{data.cvv}</Text>
               </View>
             </View>
           </Sessao>

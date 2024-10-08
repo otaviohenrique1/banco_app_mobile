@@ -3,9 +3,10 @@ import Sessao from '../../components/Sessao';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { destino } from '../../types';
 import { NovoCartaoItem } from '../NovoCartaoItem';
+import { styles } from './styles';
 
 export interface ListaCartoesTypes {
-  id?: number | string | undefined;
+  id: string;
   nome: string;
   numero: string;
   cvv: string;
@@ -37,11 +38,12 @@ export function NovoCartao(props: NovoCartaoProps) {
               key={`${item.nome}-${index}`}
               nome={item.nome}
               numero={item.numero}
+              id={item.id}
             />
           );
         })}
       </Sessao>
-      <TouchableOpacity style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginVertical: 10 }} onPress={listaCartoesBotaoAdicionar}>
+      <TouchableOpacity style={styles.botao} onPress={listaCartoesBotaoAdicionar}>
         <Text>Adicionar cartão</Text>
         <AntDesign name="plus" size={24} color="black" />
       </TouchableOpacity>

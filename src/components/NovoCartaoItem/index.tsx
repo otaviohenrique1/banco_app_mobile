@@ -8,21 +8,22 @@ interface NovoCartaoItemProps {
   navigation: any;
   nome: string;
   numero: string;
+  id: string;
 };
 
 export function NovoCartaoItem(props: NovoCartaoItemProps) {
-  const { nome, numero, destino, navigation } = props;
+  const { nome, numero, destino, navigation, id } = props;
 
   return (
     <TouchableOpacity
       style={styles.botao}
-      onPress={() => navigation.navigate(destino, {})}
+      onPress={() => navigation.navigate(destino, { id: id })}
     >
       <View style={styles.botaoContainer}>
         <AntDesign name="creditcard" size={24} color="black" style={styles.icone} />
         <View>
           <Text>{nome}</Text>
-          <Text>{numero}</Text>
+          <Text>{`...${numero.substring(14)}`}</Text>
         </View>
       </View>
       <AntDesign name="right" size={20} color="black" />

@@ -1,6 +1,7 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 export interface CartaoTypes {
+  id: string,
   nome: string;
   numero: string;
   cvv: string;

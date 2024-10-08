@@ -21,10 +21,10 @@ export function geraNumeroCartao(): string {
 
 // Arrumar
 export function geraNumeroCVV(): string {
-  const numero = Math.round(Math.random() * 9).toString();
-  if(numero.length === 3) {
+  const numero = Math.round(Math.random() * 999).toString();
+  if(numero.length === 2) {
     return `0${numero}`;
-  } else if(numero.length === 2) {
+  } else if(numero.length === 1) {
     return `00${numero}`;
   }
   return numero;
