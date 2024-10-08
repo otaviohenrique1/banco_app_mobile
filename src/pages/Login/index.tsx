@@ -1,4 +1,4 @@
-import { Button, Text, View, TouchableOpacity } from "react-native";
+import { Text, View } from "react-native";
 import Container from "../../components/Container";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -40,6 +40,7 @@ export default function Login({ navigation }: Props) {
         <Formik
           initialValues={valoresIniciais}
           onSubmit={values => {
+            
             navigation.navigate("HomePage");
           }}
           validationSchema={schema}
@@ -63,20 +64,22 @@ export default function Login({ navigation }: Props) {
                 placeholder="Senha"
                 secureTextEntry
               />
-              <Botao
-                backgroundColor="blue"
-                textColor="white"
-                onPress={() => handleSubmit()}
-                label="Entrar"
-                marginTop={10}
-              />
-              <Botao
-                backgroundColor="red"
-                textColor="white"
-                onPress={() => navigation.navigate("Cadastro")}
-                label="Cadastrar"
-                marginTop={10}
-              />
+              <View style={styles.areaBotoes}>
+                <Botao
+                  backgroundColor="blue"
+                  textColor="white"
+                  onPress={() => handleSubmit()}
+                  label="Entrar"
+                  marginTop={10}
+                />
+                <Botao
+                  backgroundColor="red"
+                  textColor="white"
+                  onPress={() => navigation.navigate("Cadastro")}
+                  label="Cadastrar"
+                  marginTop={10}
+                />
+              </View>
             </View>
           )}
         </Formik>

@@ -11,6 +11,9 @@ import React, { useContext } from "react";
 import { BotaoVoltar } from "../../components/BotaoVoltar";
 import UsuarioContext from "../../context/usuario";
 import { v4 as uuid } from "uuid";
+import { validateCPF } from "../../utils";
+import MaskInput, { Masks } from 'react-native-mask-input';
+import { InputMask } from "../../components/InputMask";
 
 const schema = Yup.object().shape({
   nome: Yup.string()
@@ -25,8 +28,12 @@ const schema = Yup.object().shape({
   confimarSenha: Yup.string()
     .min(8, "Minimo de 8 caracteres")
     .max(50, "Maximo de 50 caracteres")
-    .oneOf([Yup.ref('password')], 'Senhas diferentes')
+    .oneOf([Yup.ref('senha')], 'Senhas diferentes')
     .required("Campo vazio"),
+  cpf: Yup.string()
+    .required("Campo vazio")
+    .test('cpf-valido', 'CPF inválido', (value) => validateCPF(value || '')),
+  // .test(),
 });
 
 interface FormTypes {
@@ -52,7 +59,7 @@ export default function Cadastro({ navigation }: Props) {
 
   return (
     <>
-      <BotaoVoltar navigation={navigation}/>
+      <BotaoVoltar navigation={navigation} />
       <Container>
         <View style={styles.container}>
           <View style={styles.areaTitulo}>
@@ -60,14 +67,15 @@ export default function Cadastro({ navigation }: Props) {
           </View>
           <Formik
             initialValues={valoresIniciais}
-            onSubmit={values => {
+            onSubmit={(values, helpers) => {
               setListaUsuarios([...listaUsuarios, {
                 id: uuid(),
                 nome: values.nome,
                 cpf: values.cpf,
                 senha: values.senha,
                 saldo: 0,
-              }])
+              }]);
+              helpers.resetForm();
               navigation.navigate("Login");
             }}
             validationSchema={schema}
@@ -108,14 +116,13 @@ export default function Cadastro({ navigation }: Props) {
                   placeholder="Confimar senha"
                   secureTextEntry
                 />
-                <Input
+                <InputMask
                   handleChange={handleChange("cpf")}
                   handleBlur={handleBlur("cpf")}
                   values={values.cpf}
                   errors={errors.cpf}
                   touched={touched.cpf}
                   placeholder="CPF"
-                  secureTextEntry
                 />
                 <View style={styles.areaBotoes}>
                   <Botao
