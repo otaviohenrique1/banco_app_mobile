@@ -15,19 +15,11 @@ import CartaoContext from "../../context/cartao";
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "MeusCartoes">;
 
 export default function MeusCartoes({ navigation }: Props) {
-  // const [listaCartaoFisico, setListaCartaoFisico] = useState<ListaCartoesTypes[]>([]);
-  const [listaCartaoTemporario, setListaCartaoTemporario] = useState<ListaCartoesTypes[]>([]);
-  const [listaCartaoVirtual, setListaCartaoVirtual] = useState<ListaCartoesTypes[]>([]);
   const [modalVisible1, setModalVisible1] = useState<boolean>(false);
   const [modalVisible2, setModalVisible2] = useState<boolean>(false);
   const [modalVisible3, setModalVisible3] = useState<boolean>(false);
   const { listaCartoes, setListaCartoes } = useContext(CartaoContext);
-  // navigation.navigate("Cartao", {
-  //   nome,
-  //   numero,
-  //   cvv,
-  //   validade
-  // })
+
   return (
     <Container>
       <ScrollView>
@@ -67,7 +59,6 @@ export default function MeusCartoes({ navigation }: Props) {
             id: uuid(),
             nome: values.nome,
             numero: geraNumeroCartao(),
-            // numero: `...${geraNumeroCartao().substring(14)}`,
             cvv: geraNumeroCVV(),
             validade: "06/32",
             tipo: "CartaoFisico"
@@ -84,7 +75,6 @@ export default function MeusCartoes({ navigation }: Props) {
             id: uuid(),
             nome: values.nome,
             numero: geraNumeroCartao(),
-            // numero: `...${geraNumeroCartao().substring(14)}`,
             cvv: geraNumeroCVV(),
             validade: "06/32",
             tipo: "CartaoTemporario"
@@ -101,7 +91,6 @@ export default function MeusCartoes({ navigation }: Props) {
             id: uuid(),
             nome: values.nome,
             numero: geraNumeroCartao(),
-            // numero: `...${geraNumeroCartao().substring(14)}`,
             cvv: geraNumeroCVV(),
             validade: "06/32",
             tipo: "CartaoVirtual"
