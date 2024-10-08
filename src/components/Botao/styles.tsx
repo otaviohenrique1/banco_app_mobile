@@ -11,5 +11,6 @@ export const styles = (backgroundColor: ColorValue, textColor: ColorValue, margi
   },
   botaoTexto: {
     color: textColor,
+    fontSize: 20,
   }
 });

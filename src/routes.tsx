@@ -28,7 +28,7 @@ const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Cadastro" screenOptions={{ contentStyle: {
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ contentStyle: {
         backgroundColor: "white"
       } }}>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />

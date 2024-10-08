@@ -7,9 +7,10 @@ import { Botao } from "../../components/Botao";
 import { styles } from "./styles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NativeStackRootStaticParamList } from "../../routes";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import React from "react";
+import React, { useContext } from "react";
 import { BotaoVoltar } from "../../components/BotaoVoltar";
+import UsuarioContext from "../../context/usuario";
+import { v4 as uuid } from "uuid";
 
 const schema = Yup.object().shape({
   nome: Yup.string()
@@ -33,6 +34,7 @@ interface FormTypes {
   email: string;
   senha: string;
   confimarSenha: string;
+  cpf: string;
 }
 
 const valoresIniciais: FormTypes = {
@@ -40,11 +42,14 @@ const valoresIniciais: FormTypes = {
   email: "",
   senha: "",
   confimarSenha: "",
+  cpf: "",
 };
 
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Cadastro">;
 
 export default function Cadastro({ navigation }: Props) {
+  const { listaUsuarios, setListaUsuarios } = useContext(UsuarioContext);
+
   return (
     <>
       <BotaoVoltar navigation={navigation}/>
@@ -56,6 +61,13 @@ export default function Cadastro({ navigation }: Props) {
           <Formik
             initialValues={valoresIniciais}
             onSubmit={values => {
+              setListaUsuarios([...listaUsuarios, {
+                id: uuid(),
+                nome: values.nome,
+                cpf: values.cpf,
+                senha: values.senha,
+                saldo: 0,
+              }])
               navigation.navigate("Login");
             }}
             validationSchema={schema}
@@ -96,6 +108,15 @@ export default function Cadastro({ navigation }: Props) {
                   placeholder="Confimar senha"
                   secureTextEntry
                 />
+                <Input
+                  handleChange={handleChange("cpf")}
+                  handleBlur={handleBlur("cpf")}
+                  values={values.cpf}
+                  errors={errors.cpf}
+                  touched={touched.cpf}
+                  placeholder="CPF"
+                  secureTextEntry
+                />
                 <View style={styles.areaBotoes}>
                   <Botao
                     backgroundColor="blue"
@@ -104,13 +125,6 @@ export default function Cadastro({ navigation }: Props) {
                     label="Salvar"
                     marginTop={10}
                   />
-                  {/* <Botao
-                    backgroundColor="red"
-                    textColor="white"
-                    onPress={() => navigation.canGoBack()}
-                    label="Voltar"
-                    marginTop={10}
-                  /> */}
                 </View>
               </View>
             )}

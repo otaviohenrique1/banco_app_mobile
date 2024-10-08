@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { CartaoContextProvider } from "./cartao";
+import { UsuarioContextProvider } from "./usuario";
 
 interface GlobalContextProps {
   children: ReactNode;
@@ -7,6 +8,10 @@ interface GlobalContextProps {
 
 export function GlobalContext({ children }: GlobalContextProps) {
   return (
-    <CartaoContextProvider>{children}</CartaoContextProvider>
+    <UsuarioContextProvider>
+      <CartaoContextProvider>
+        {children}
+      </CartaoContextProvider>
+    </UsuarioContextProvider>
   );
 }
