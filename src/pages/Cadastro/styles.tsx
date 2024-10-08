@@ -14,4 +14,7 @@ export const styles = StyleSheet.create({
   formulario: {
     margin: 20,
   },
+  areaBotoes: {
+    marginTop: 50,
+  },
 });

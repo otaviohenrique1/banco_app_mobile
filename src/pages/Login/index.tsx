@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import { Input } from "../../components/Input";
 import { Botao } from "../../components/Botao";
 import { styles } from "./styles";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackRootStaticParamList } from "../../routes";
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -26,16 +28,20 @@ const valoresIniciais: FormTypes = {
   senha: "",
 };
 
-export default function Login() {
+type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Login">;
+
+export default function Login({ navigation }: Props) {
   return (
     <Container>
       <View style={styles.container}>
         <View style={styles.areaTitulo}>
-          <Text style={styles.titulo} >Banco app</Text>
+          <Text style={styles.titulo} >Banco APP</Text>
         </View>
         <Formik
           initialValues={valoresIniciais}
-          onSubmit={values => console.log(values)}
+          onSubmit={values => {
+            navigation.navigate("HomePage");
+          }}
           validationSchema={schema}
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
@@ -67,7 +73,7 @@ export default function Login() {
               <Botao
                 backgroundColor="red"
                 textColor="white"
-                onPress={() => {}}
+                onPress={() => navigation.navigate("Cadastro")}
                 label="Cadastrar"
                 marginTop={10}
               />

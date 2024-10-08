@@ -7,9 +7,9 @@ import { Button, Text, View } from 'react-native';
 import { Header } from './components/Header';
 import Conta from './pages/Conta';
 import MeusCartoes from './pages/MeusCartoes';
-import CartaoFisico from './pages/CartaoFisico';
-import CartaoVirtual from './pages/CartaoVirtual';
-import CartaoTemporario from './pages/CartaoTemporario';
+import CartaoFisico from './antigo/CartaoFisico';
+import CartaoVirtual from './antigo/CartaoVirtual';
+import CartaoTemporario from './antigo/CartaoTemporario';
 import Cartao from './pages/Cartao';
 
 export type NativeStackRootStaticParamList = {
@@ -18,9 +18,6 @@ export type NativeStackRootStaticParamList = {
   HomePage: undefined;
   Conta: undefined;
   MeusCartoes: undefined;
-  CartaoFisico: undefined;
-  CartaoVirtual: undefined;
-  CartaoTemporario: undefined;
   Cartao: {
     id: string,
   };
@@ -31,7 +28,9 @@ const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MeusCartoes">
+      <Stack.Navigator initialRouteName="Cadastro" screenOptions={{ contentStyle: {
+        backgroundColor: "white"
+      } }}>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
         <Stack.Screen name="HomePage" component={HomePage} options={{
@@ -41,9 +40,6 @@ export function AppRoutes() {
         }} />
         <Stack.Screen name="Conta" component={Conta} options={{ headerShown: false }} />
         <Stack.Screen name="MeusCartoes" component={MeusCartoes} options={{ headerShown: false }} />
-        <Stack.Screen name="CartaoFisico" component={CartaoFisico} options={{ headerShown: false }} />
-        <Stack.Screen name="CartaoVirtual" component={CartaoVirtual} options={{ headerShown: false }} />
-        <Stack.Screen name="CartaoTemporario" component={CartaoTemporario} options={{ headerShown: false }} />
         <Stack.Screen name="Cartao" component={Cartao} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

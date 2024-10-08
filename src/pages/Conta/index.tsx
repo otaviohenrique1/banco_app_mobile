@@ -11,19 +11,15 @@ import Foundation from '@expo/vector-icons/Foundation';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NativeStackRootStaticParamList } from '../../routes';
-import Constants from "expo-constants";
+import { BotaoVoltar } from '../../components/BotaoVoltar';
+import { styles } from './styles';
 
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Conta">;
 
 export default function Conta({ navigation }: Props) {
-  const iconeStyle = { padding: 20, backgroundColor: "gray", borderRadius: 100, width: 65 };
-
   return (
     <Container>
-      <View style={{ marginTop: Constants.statusBarHeight, }}></View>
-      <TouchableOpacity style={{}} onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back-sharp" size={24} color="black" />
-      </TouchableOpacity>
+      <BotaoVoltar navigation={navigation}/>
       <Sessao
         bordaEmBaixo
         bordaEmCima={false}
@@ -56,49 +52,49 @@ export default function Conta({ navigation }: Props) {
           <BotaoSeta label="R$ 1000,00" onPress={() => { }} />
           <Text>R$ 5,00</Text>
         </Sessao>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scrollView}>
           <BotaoIconeTexto
-            icone={<MaterialCommunityIcons name="cellphone-arrow-down" size={24} color="white" style={iconeStyle} />}
+            icone={<MaterialCommunityIcons name="cellphone-arrow-down" size={24} color="white" style={styles.icone} />}
             listaTexto={["Depositar"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<AntDesign name="barcode" size={24} color="white" style={iconeStyle} />}
+            icone={<AntDesign name="barcode" size={24} color="white" style={styles.icone} />}
             listaTexto={["Pagar"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<Ionicons name="reload" size={24} color="white" style={iconeStyle} />}
+            icone={<Ionicons name="reload" size={24} color="white" style={styles.icone} />}
             listaTexto={["Débito", "Automático"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<FontAwesome6 name="hand-holding-dollar" size={24} color="white" style={iconeStyle} />}
+            icone={<FontAwesome6 name="hand-holding-dollar" size={24} color="white" style={styles.icone} />}
             listaTexto={["Empréstimos"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<Foundation name="dollar-bill" size={24} color="white" style={iconeStyle} />}
+            icone={<Foundation name="dollar-bill" size={24} color="white" style={styles.icone} />}
             listaTexto={["Transferir"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<FontAwesome5 name="signal" size={24} color="white" style={iconeStyle} />}
+            icone={<FontAwesome5 name="signal" size={24} color="white" style={styles.icone} />}
             listaTexto={["Investir"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<Ionicons name="newspaper-outline" size={24} color="white" style={iconeStyle} />}
+            icone={<Ionicons name="newspaper-outline" size={24} color="white" style={styles.icone} />}
             listaTexto={["Pedir", "Extrato"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<FontAwesome6 name="file-invoice-dollar" size={24} color="white" style={iconeStyle} />}
+            icone={<FontAwesome6 name="file-invoice-dollar" size={24} color="white" style={styles.icone} />}
             listaTexto={["Cobrar"]}
             onPress={() => { }}
           />
           <BotaoIconeTexto
-            icone={<FontAwesome6 name="money-check-dollar" size={24} color="white" style={iconeStyle} />}
+            icone={<FontAwesome6 name="money-check-dollar" size={24} color="white" style={styles.icone} />}
             listaTexto={["Seu", "Sálario"]}
             onPress={() => { }}
           />
