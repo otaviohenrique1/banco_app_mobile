@@ -24,21 +24,22 @@ export default function HomePage({ navigation }: Props) {
   const navigationView = () => (
     <View style={[{
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginTop: Constants.statusBarHeight,
       padding: 16,
     }, {
       backgroundColor: '#ecf0f1',
     }]}>
-      <Text style={{
-        padding: 16,
-        fontSize: 15,
-        textAlign: 'center',
-      }}>I'm in the Drawer!</Text>
-      <Button
-        title="Close drawer"
-        onPress={() => drawer.current?.closeDrawer()}
-      />
+      <View style={{ flexDirection: "row", justifyContent: "flex-end", }}>
+        <TouchableOpacity
+          onPress={() => drawer.current?.closeDrawer()}
+        >
+          <AntDesign name="close" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+      <View style={{ flexDirection: "row", justifyContent: "center", }}>
+        <FontAwesome name="user-circle-o" size={50} color="black" />
+      </View>
+      
     </View>
   );
 

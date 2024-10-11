@@ -6,6 +6,9 @@ export interface UsuarioTypes {
   senha: string;
   cpf: string;
   saldo: number;
+  agencia: number;
+  conta: number;
+  banco: number;
 }
 
 type PropsUsuarioContext = {
