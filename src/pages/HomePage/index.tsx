@@ -37,9 +37,55 @@ export default function HomePage({ navigation }: Props) {
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: "row", justifyContent: "center", }}>
-        <FontAwesome name="user-circle-o" size={50} color="black" />
+        <TouchableOpacity
+          onPress={() => { }}
+          style={{ width: 50, height: 50, }}
+        >
+          <FontAwesome name="user-circle-o" size={50} color="black" />
+        </TouchableOpacity>
       </View>
-      
+      <Sessao
+        bordaEmBaixo
+        bordaEmCima={false}
+      >
+        <View>
+          <Text>Agencia</Text>
+          <Text style={{ fontSize: 20 }}>0001</Text>
+        </View>
+        <View>
+          <Text>Conta</Text>
+          <Text style={{ fontSize: 20 }}>12345678-9</Text>
+        </View>
+        <View>
+          <Text>Banco</Text>
+          <Text style={{ fontSize: 20 }}>1234</Text>
+        </View>
+        <View>
+          <Text style={{ fontSize: 20 }}>Banco APP</Text>
+        </View>
+      </Sessao>
+      <Sessao
+        bordaEmBaixo
+        bordaEmCima={false}
+      >
+        <TouchableOpacity
+          onPress={() => { }}
+          style={{ alignItems: "center" }}
+        >
+          <Text>Perfil</Text>
+        </TouchableOpacity>
+      </Sessao>
+      <Sessao
+        bordaEmBaixo
+        bordaEmCima={false}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.replace("Login")}
+          style={{ alignItems: "center" }}
+        >
+          <Text>Sair</Text>
+        </TouchableOpacity>
+      </Sessao>
     </View>
   );
 

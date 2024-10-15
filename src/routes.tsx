@@ -24,7 +24,7 @@ const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 export function AppRoutes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomePage" screenOptions={{
+      <Stack.Navigator initialRouteName="Login" screenOptions={{
         contentStyle: {
           backgroundColor: "white"
         }
