@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import Conta from './pages/Conta';
 import MeusCartoes from './pages/MeusCartoes';
 import Cartao from './pages/Cartao';
+import Perfil from './pages/Perfil';
 
 export type NativeStackRootStaticParamList = {
   Login: undefined;
@@ -17,6 +18,7 @@ export type NativeStackRootStaticParamList = {
   Cartao: {
     id: string,
   };
+  Perfil: undefined;
 }
 
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
@@ -40,6 +42,7 @@ export function AppRoutes() {
         <Stack.Screen name="Conta" component={Conta} options={{ headerShown: false }} />
         <Stack.Screen name="MeusCartoes" component={MeusCartoes} options={{ headerShown: false }} />
         <Stack.Screen name="Cartao" component={Cartao} options={{ headerShown: false }} />
+        <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

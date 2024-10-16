@@ -79,6 +79,13 @@ export default function Login({ navigation }: Props) {
                   label="Cadastrar"
                   marginTop={10}
                 />
+                <Botao
+                  backgroundColor="gray"
+                  textColor="white"
+                  onPress={() => navigation.navigate("Perfil")}
+                  label="Perfil"
+                  marginTop={10}
+                />
               </View>
             </View>
           )}

@@ -61,3 +61,18 @@ export const validateCPF = (cpf: string): boolean => {
 
   return true;
 };
+
+export function geraAgencia(): string {
+  return geraNumeroAleatorio();
+}
+
+export function geraConta(): string {
+  const n1 = geraNumeroAleatorio();
+  const n2 = geraNumeroAleatorio();
+  const n3 = Math.round(Math.random() * 9).toString();
+  return `${n1}${n2}-${n3}`;
+}
+
+export function geraBanco(): string {
+  return geraNumeroAleatorio();
+}

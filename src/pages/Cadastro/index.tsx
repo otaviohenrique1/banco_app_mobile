@@ -11,9 +11,10 @@ import React, { useContext } from "react";
 import { BotaoVoltar } from "../../components/BotaoVoltar";
 import UsuarioContext from "../../context/usuario";
 import { v4 as uuid } from "uuid";
-import { validateCPF } from "../../utils";
-import MaskInput, { Masks } from 'react-native-mask-input';
+import { geraAgencia, geraBanco, geraConta, validateCPF } from "../../utils";
 import { InputMask } from "../../components/InputMask";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
 
 const schema = Yup.object().shape({
   nome: Yup.string()
@@ -74,9 +75,37 @@ export default function Cadastro({ navigation }: Props) {
                 cpf: values.cpf,
                 senha: values.senha,
                 saldo: 0,
+                agencia: geraAgencia(),
+                conta: geraConta(),
+                banco: geraBanco(),
               }]);
-              helpers.resetForm();
-              navigation.navigate("Login");
+              // AsyncStorage.setItem("id", uuid());
+              // AsyncStorage.setItem("nome", values.nome);
+              // AsyncStorage.setItem("cpf", values.cpf);
+              // AsyncStorage.setItem("senha", values.senha);
+              // AsyncStorage.setItem("saldo", "0");
+              // AsyncStorage.setItem("agencia", geraAgencia());
+              // AsyncStorage.setItem("conta", geraConta());
+              // AsyncStorage.setItem("banco", geraBanco());
+              axios.post("http://10.0.2.2:8000/clientes/", {
+                nome: values.nome,
+                email: values.email,
+                cpf: values.cpf,
+                senha: values.senha,
+                conta: {
+                  saldo: 0,
+                  agencia: geraAgencia(),
+                  banco: geraBanco(), 
+                  conta: geraConta(),
+                  nome_banco: "BancoAPP"
+                }
+              }).then(response => {
+                console.log('Resposta do servidor:', response.data);
+              }).catch(error => {
+                console.error('Erro na requisição:', error);
+              });
+              // helpers.resetForm();
+              // navigation.navigate("Login");
             }}
             validationSchema={schema}
           >
