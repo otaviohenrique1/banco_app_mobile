@@ -87,25 +87,35 @@ export default function Cadastro({ navigation }: Props) {
               // AsyncStorage.setItem("agencia", geraAgencia());
               // AsyncStorage.setItem("conta", geraConta());
               // AsyncStorage.setItem("banco", geraBanco());
-              axios.post("http://10.0.2.2:8000/clientes/", {
+              const data = {
                 nome: values.nome,
                 email: values.email,
-                cpf: values.cpf,
+                cpf: values.cpf.replace(/[.\-]/g, ""),
                 senha: values.senha,
                 conta: {
                   saldo: 0,
                   agencia: geraAgencia(),
-                  banco: geraBanco(), 
-                  conta: geraConta(),
+                  banco: geraBanco(),
+                  conta_numero: geraConta(),
                   nome_banco: "BancoAPP"
                 }
-              }).then(response => {
-                console.log('Resposta do servidor:', response.data);
+              };
+              // console.log("-------------------------------")
+              // console.log(data.cpf)
+              // console.log("-------------------------------")
+              axios.post("http://10.0.2.2:8000/clientes/", data,
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              ).then(response => {
+                console.log('Resposta do servidor:', response.status);
               }).catch(error => {
                 console.error('Erro na requisição:', error);
               });
-              // helpers.resetForm();
-              // navigation.navigate("Login");
+              helpers.resetForm();
+              navigation.navigate("Login");
             }}
             validationSchema={schema}
           >
