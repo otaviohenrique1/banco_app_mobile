@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import Container from "../../components/Container";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,11 +7,14 @@ import { Botao } from "../../components/Botao";
 import { styles } from "./styles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NativeStackRootStaticParamList } from "../../routes";
+import axios from "axios";
+import { validateCPF } from "../../utils";
+import { InputMask } from "../../components/InputMask";
 
 const schema = Yup.object().shape({
-  email: Yup.string()
-    .email("Email inválido")
-    .required("Campo vazio"),
+  cpf: Yup.string()
+    .required("Campo vazio")
+    .test('cpf-valido', 'CPF inválido', (value) => validateCPF(value || '')),
   senha: Yup.string()
     .min(8, "Minimo de 8 caracteres")
     .max(50, "Maximo de 50 caracteres")
@@ -19,12 +22,12 @@ const schema = Yup.object().shape({
 });
 
 interface FormTypes {
-  email: string;
+  cpf: string;
   senha: string;
 }
 
 const valoresIniciais: FormTypes = {
-  email: "",
+  cpf: "",
   senha: "",
 };
 
@@ -40,20 +43,35 @@ export default function Login({ navigation }: Props) {
         <Formik
           initialValues={valoresIniciais}
           onSubmit={values => {
-            
-            navigation.navigate("HomePage");
+            const data = {
+              cpf: values.cpf.replace(/[.\-]/g, ""),
+              senha: values.senha,
+            };
+
+            axios.post("http://10.0.2.2:8000/login/", data,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }
+            ).then(response => {
+              // console.log('Resposta do servidor:', response.data);
+              navigation.navigate("HomePage");
+            }).catch(error => {
+              console.error('Erro na requisição:', error);
+            });
           }}
           validationSchema={schema}
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
             <View style={styles.formulario}>
-              <Input
-                handleChange={handleChange("email")}
-                handleBlur={handleBlur("email")}
-                values={values.email}
-                errors={errors.email}
-                touched={touched.email}
-                placeholder="Email"
+              <InputMask
+                handleChange={handleChange("cpf")}
+                handleBlur={handleBlur("cpf")}
+                values={values.cpf}
+                errors={errors.cpf}
+                touched={touched.cpf}
+                placeholder="CPF"
               />
               <Input
                 handleChange={handleChange("senha")}
@@ -77,13 +95,6 @@ export default function Login({ navigation }: Props) {
                   textColor="white"
                   onPress={() => navigation.navigate("Cadastro")}
                   label="Cadastrar"
-                  marginTop={10}
-                />
-                <Botao
-                  backgroundColor="gray"
-                  textColor="white"
-                  onPress={() => navigation.navigate("Perfil")}
-                  label="Perfil"
                   marginTop={10}
                 />
               </View>

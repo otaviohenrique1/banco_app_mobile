@@ -1,8 +1,8 @@
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import Container from '../../components/Container';
-import Sessao from '../../components/Sessao';
-import BotaoSeta from '../../components/BotaoSeta';
-import { BotaoIconeTexto } from '../../components/BotaoIconeTexto';
+import Container from '../../../components/Container';
+import Sessao from '../../../components/Sessao';
+import BotaoSeta from '../../../components/BotaoSeta';
+import { BotaoIconeTexto } from '../../../components/BotaoIconeTexto';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -10,12 +10,12 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Foundation from '@expo/vector-icons/Foundation';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NativeStackRootStaticParamList } from '../../routes';
+import { NativeStackRootStaticParamList } from '../../../routes';
 import Constants from "expo-constants";
 
-type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "CartaoVirtual">;
+type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "CartaoTemporario">;
 
-export default function CartaoVirtual({ navigation }: Props) {
+export default function CartaoTemporario({ navigation }: Props) {
   return (
     <Container>
       <View style={{ marginTop: Constants.statusBarHeight, }}>
@@ -30,7 +30,7 @@ export default function CartaoVirtual({ navigation }: Props) {
             bordaEmBaixo={false}
             bordaEmCima={false}
           >
-            <Text>Cartão virtual</Text>
+            <Text>Cartão temporário</Text>
           </Sessao>
           <Sessao
             bordaEmBaixo={false}

@@ -1,4 +1,4 @@
-import { Button, Text, View, TouchableOpacity } from "react-native";
+import { Alert, Text, View } from "react-native";
 import Container from "../../components/Container";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,10 +7,10 @@ import { Botao } from "../../components/Botao";
 import { styles } from "./styles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NativeStackRootStaticParamList } from "../../routes";
-import React, { useContext } from "react";
+import React/* , { useContext } */ from "react";
 import { BotaoVoltar } from "../../components/BotaoVoltar";
-import UsuarioContext from "../../context/usuario";
-import { v4 as uuid } from "uuid";
+// import UsuarioContext from "../../context/usuario";
+// import { v4 as uuid } from "uuid";
 import { geraAgencia, geraBanco, geraConta, validateCPF } from "../../utils";
 import { InputMask } from "../../components/InputMask";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -56,7 +56,7 @@ const valoresIniciais: FormTypes = {
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Cadastro">;
 
 export default function Cadastro({ navigation }: Props) {
-  const { listaUsuarios, setListaUsuarios } = useContext(UsuarioContext);
+  // const { listaUsuarios, setListaUsuarios } = useContext(UsuarioContext);
 
   return (
     <>
@@ -69,24 +69,16 @@ export default function Cadastro({ navigation }: Props) {
           <Formik
             initialValues={valoresIniciais}
             onSubmit={(values, helpers) => {
-              setListaUsuarios([...listaUsuarios, {
-                id: uuid(),
-                nome: values.nome,
-                cpf: values.cpf,
-                senha: values.senha,
-                saldo: 0,
-                agencia: geraAgencia(),
-                conta: geraConta(),
-                banco: geraBanco(),
-              }]);
-              // AsyncStorage.setItem("id", uuid());
-              // AsyncStorage.setItem("nome", values.nome);
-              // AsyncStorage.setItem("cpf", values.cpf);
-              // AsyncStorage.setItem("senha", values.senha);
-              // AsyncStorage.setItem("saldo", "0");
-              // AsyncStorage.setItem("agencia", geraAgencia());
-              // AsyncStorage.setItem("conta", geraConta());
-              // AsyncStorage.setItem("banco", geraBanco());
+              // setListaUsuarios([...listaUsuarios, {
+              //   id: uuid(),
+              //   nome: values.nome,
+              //   cpf: values.cpf,
+              //   senha: values.senha,
+              //   saldo: 0,
+              //   agencia: geraAgencia(),
+              //   conta: geraConta(),
+              //   banco: geraBanco(),
+              // }]);
               const data = {
                 nome: values.nome,
                 email: values.email,
@@ -100,9 +92,6 @@ export default function Cadastro({ navigation }: Props) {
                   nome_banco: "BancoAPP"
                 }
               };
-              // console.log("-------------------------------")
-              // console.log(data.cpf)
-              // console.log("-------------------------------")
               axios.post("http://10.0.2.2:8000/clientes/", data,
                 {
                   headers: {
@@ -110,12 +99,14 @@ export default function Cadastro({ navigation }: Props) {
                   },
                 }
               ).then(response => {
-                console.log('Resposta do servidor:', response.status);
+                // console.log('Resposta do servidor:', response.status);
+                Alert.alert("Cadastro realizado com sucesso!");
+                helpers.resetForm();
+                navigation.navigate("Login");
               }).catch(error => {
                 console.error('Erro na requisição:', error);
+                Alert.alert("Erro: ", `${error}`);
               });
-              helpers.resetForm();
-              navigation.navigate("Login");
             }}
             validationSchema={schema}
           >

@@ -2,51 +2,47 @@ import React, { useEffect, useState, createContext, useContext } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import axios from 'axios';
 
-// Tipagens para navegação
-type AuthStackParamList = {
-  SignIn: undefined;
+// Definindo o tipo do contexto de autenticação
+type AuthContextType = {
+  signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  userToken: string | null;
 };
 
-type DrawerParamList = {
+// Criando o contexto de autenticação
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Definindo os tipos de navegação
+type RootStackParamList = {
+  SignIn: undefined;
   Home: undefined;
 };
 
-type AuthContextType = {
-  signIn: (token: string) => Promise<void>;
-  signOut: () => Promise<void>;
-};
+// Criando o Stack Navigator
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-// Criando o AuthContext com tipagem
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// Tipagem dos componentes de navegação
-const AuthStack = createStackNavigator<AuthStackParamList>();
-const Drawer = createDrawerNavigator<DrawerParamList>();
-
-// Tela de login
+// Tela de Login
 const SignInScreen: React.FC = () => {
   const authContext = useContext(AuthContext);
 
   const handleSignIn = async () => {
-    // Simula o recebimento de um token JWT após login bem-sucedido
-    const token = 'jwt_token_falso';
     if (authContext) {
-      await authContext.signIn(token);
+      await authContext.signIn('email@example.com', 'password');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text>Bem-vindo! Faça login</Text>
+      <Text>Por favor, faça o login</Text>
       <Button title="Login" onPress={handleSignIn} />
     </View>
   );
 };
 
-// Tela principal (após autenticação)
+// Tela principal (Home)
 const HomeScreen: React.FC = () => {
   const authContext = useContext(AuthContext);
 
@@ -65,84 +61,56 @@ const HomeScreen: React.FC = () => {
   );
 };
 
-// Stack Navigator para as telas de login
-const AuthStackScreen: React.FC = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen name="SignIn" component={SignInScreen} />
-  </AuthStack.Navigator>
-);
-
-// Drawer Navigator para as telas após login
-const DrawerScreen: React.FC = () => (
-  <Drawer.Navigator>
-    <Drawer.Screen name="Home" component={HomeScreen} />
-  </Drawer.Navigator>
-);
-
-// Tipagem do estado de autenticação
-type StateType = {
-  isLoading: boolean;
-  isSignout: boolean;
-  userToken: string | null;
-};
-
-// Componente principal do App
+// Componente de navegação principal
 const App: React.FC = () => {
-  const [state, setState] = useState<StateType>({
-    isLoading: true,
-    isSignout: false,
-    userToken: null,
-  });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [userToken, setUserToken] = useState<string | null>(null);
 
   const authContext: AuthContextType = {
-    signIn: async (token: string) => {
+    signIn: async (email: string, password: string) => {
+      // Simular a autenticação e receber um token
+      const response = await axios.post('https://exemplo.com/api/login', { email, password });
+      const token = response.data.token;
+
+      // Armazenar o token no AsyncStorage
       await AsyncStorage.setItem('userToken', token);
-      setState({
-        ...state,
-        isSignout: false,
-        userToken: token,
-        isLoading: false,
-      });
+      setUserToken(token);
     },
     signOut: async () => {
+      // Remover o token do AsyncStorage
       await AsyncStorage.removeItem('userToken');
-      setState({
-        ...state,
-        isSignout: true,
-        userToken: null,
-      });
+      setUserToken(null);
     },
+    userToken,
   };
 
   useEffect(() => {
+    // Verificar se há um token armazenado ao iniciar o app
     const checkToken = async () => {
-      try {
-        const userToken = await AsyncStorage.getItem('userToken');
-        setState({
-          ...state,
-          userToken: userToken ? userToken : null,
-          isLoading: false,
-        });
-      } catch (e) {
-        setState({ ...state, isLoading: false });
-      }
+      const storedToken = await AsyncStorage.getItem('userToken');
+      setUserToken(storedToken);
+      setIsLoading(false);
     };
 
     checkToken();
   }, []);
 
-  if (state.isLoading) {
+  if (isLoading) {
     return <ActivityIndicator size="large" />;
   }
 
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        {state.userToken == null ? (
-          <AuthStackScreen />
-        ) : (
-          <DrawerScreen />
-        )}
+        <Stack.Navigator>
+          {userToken == null ? (
+            // Se o usuário não estiver autenticado, mostrar a tela de login
+            <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+          ) : (
+            // Se o usuário estiver autenticado, mostrar a tela principal
+            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+          )}
+        </Stack.Navigator>
       </NavigationContainer>
     </AuthContext.Provider>
   );
