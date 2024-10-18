@@ -10,6 +10,10 @@ import { NativeStackRootStaticParamList } from "../../routes";
 import axios from "axios";
 import { validateCPF } from "../../utils";
 import { InputMask } from "../../components/InputMask";
+import { useContext } from "react";
+import { useAuth } from "../../context/autenticacao";
+import UsuarioContext from "../../context/usuario";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const schema = Yup.object().shape({
   cpf: Yup.string()
@@ -34,6 +38,9 @@ const valoresIniciais: FormTypes = {
 type Props = NativeStackScreenProps<NativeStackRootStaticParamList, "Login">;
 
 export default function Login({ navigation }: Props) {
+  const { setIsSignedIn, setToken } = useAuth();
+  const { setUsuario } = useContext(UsuarioContext);
+
   return (
     <Container>
       <View style={styles.container}>
@@ -56,7 +63,18 @@ export default function Login({ navigation }: Props) {
               }
             ).then(response => {
               // console.log('Resposta do servidor:', response.data);
-              navigation.navigate("HomePage");
+              const token = response.data.token;
+              const id = response.data.id;
+              const cpf = response.data.cpf;
+              AsyncStorage.setItem("token", token);
+              AsyncStorage.setItem("id", id.toString());
+              setToken(token);
+              setUsuario({
+                id: id,
+                cpf: cpf,
+              })
+              setIsSignedIn(true);
+              navigation.replace("HomePage");
             }).catch(error => {
               console.error('Erro na requisição:', error);
             });

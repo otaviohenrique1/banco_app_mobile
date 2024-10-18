@@ -2,23 +2,20 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useState } from "re
 
 export interface UsuarioTypes {
   id: string;
-  nome: string;
-  senha: string;
   cpf: string;
-  saldo: number;
-  agencia: number | string;
-  conta: number | string;
-  banco: number | string;
 }
 
 type PropsUsuarioContext = {
-  listaUsuarios: UsuarioTypes[];
-  setListaUsuarios: Dispatch<SetStateAction<UsuarioTypes[]>>;
+  usuario: UsuarioTypes;
+  setUsuario: Dispatch<SetStateAction<UsuarioTypes>>;
 }
 
 const DEFAULT_VALUE = { 
-  listaUsuarios: [],
-  setListaUsuarios: () => {}
+  usuario: {
+    id: "",
+    cpf: "",
+  },
+  setUsuario: () => {}
 }
 
 const UsuarioContext = createContext<PropsUsuarioContext>(DEFAULT_VALUE);
@@ -28,11 +25,11 @@ interface UsuarioContextProviderProps {
 }
 
 function UsuarioContextProvider({ children }: UsuarioContextProviderProps)  {
-  const [listaUsuarios, setListaUsuarios] = useState<UsuarioTypes[]>(DEFAULT_VALUE.listaUsuarios);
+  const [usuario, setUsuario] = useState<UsuarioTypes>(DEFAULT_VALUE.usuario);
 
   return(
     <UsuarioContext.Provider
-      value={{ listaUsuarios, setListaUsuarios }}
+      value={{ usuario, setUsuario }}
     >
       {children}
     </UsuarioContext.Provider>

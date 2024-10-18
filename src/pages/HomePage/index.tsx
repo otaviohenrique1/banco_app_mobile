@@ -69,7 +69,7 @@ export default function HomePage({ navigation }: Props) {
         bordaEmCima={false}
       >
         <TouchableOpacity
-          onPress={() => { }}
+          onPress={() => navigation.navigate("Perfil")}
           style={{ alignItems: "center" }}
         >
           <Text>Perfil</Text>

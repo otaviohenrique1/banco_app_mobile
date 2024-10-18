@@ -8,6 +8,9 @@ import MeusCartoes from './pages/MeusCartoes';
 import Cartao from './pages/Cartao';
 import Perfil from './pages/Perfil';
 import { useAuth, AuthProvider } from './context/autenticacao';
+import { useContext } from 'react';
+import UsuarioContext from './context/usuario';
+import React from 'react';
 
 export type NativeStackRootStaticParamList = {
   Login: undefined;
@@ -24,22 +27,30 @@ export type NativeStackRootStaticParamList = {
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
 
 export function AppRoutes() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, token } = useAuth();
+  const { usuario, setUsuario } = useContext(UsuarioContext);
 
   return (
     <AuthProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login" screenOptions={{
-          contentStyle: { backgroundColor: "white" },
+          contentStyle: { backgroundColor: "white", },
           headerShown: false,
         }}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Cadastro" component={Cadastro} />
-          <Stack.Screen name="HomePage" component={HomePage} />
-          <Stack.Screen name="Conta" component={Conta} />
-          <Stack.Screen name="MeusCartoes" component={MeusCartoes} />
-          <Stack.Screen name="Cartao" component={Cartao} />
-          <Stack.Screen name="Perfil" component={Perfil} />
+          {/* {(isSignedIn && token !== null) ? (
+            <Stack.Group> */}
+              <Stack.Screen name="HomePage" component={HomePage} />
+              <Stack.Screen name="Conta" component={Conta} />
+              <Stack.Screen name="MeusCartoes" component={MeusCartoes} />
+              <Stack.Screen name="Cartao" component={Cartao} />
+              <Stack.Screen name="Perfil" component={Perfil} />
+            {/* </Stack.Group>
+          ) : (
+            <Stack.Group> */}
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Cadastro" component={Cadastro} />
+            {/* </Stack.Group>
+          )} */}
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
