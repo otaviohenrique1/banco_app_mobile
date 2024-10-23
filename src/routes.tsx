@@ -88,7 +88,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 const DrawerTeste: React.FC = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator>
+      <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
         <Drawer.Screen name="Teste" component={Teste} />
         <Drawer.Screen name="Login" component={Login} />
         <Drawer.Screen name="Perfil" component={Perfil} />
