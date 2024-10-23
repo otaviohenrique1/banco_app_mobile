@@ -7,7 +7,7 @@ import { Botao } from "../../components/Botao";
 import { styles } from "./styles";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NativeStackRootStaticParamList } from "../../routes";
-import React, { useContext }/* , { useContext } */ from "react";
+import React/* , { useContext } */ from "react";
 import { BotaoVoltar } from "../../components/BotaoVoltar";
 // import UsuarioContext from "../../context/usuario";
 // import { v4 as uuid } from "uuid";
@@ -15,8 +15,6 @@ import { geraAgencia, geraBanco, geraConta, validateCPF } from "../../utils";
 import { InputMask } from "../../components/InputMask";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
-import { useAuth } from "../../context/autenticacao";
-import UsuarioContext from "../../context/usuario";
 
 const schema = Yup.object().shape({
   nome: Yup.string()

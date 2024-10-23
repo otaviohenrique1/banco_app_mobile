@@ -11,6 +11,9 @@ import { useAuth, AuthProvider } from './context/autenticacao';
 import { useContext } from 'react';
 import UsuarioContext from './context/usuario';
 import React from 'react';
+import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView, DrawerItem, DrawerNavigationProp } from '@react-navigation/drawer';
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
+import { Button, Text } from 'react-native';
 
 export type NativeStackRootStaticParamList = {
   Login: undefined;
@@ -22,6 +25,7 @@ export type NativeStackRootStaticParamList = {
     id: string,
   };
   Perfil: undefined;
+  DrawerTeste: undefined;
 }
 
 const Stack = createNativeStackNavigator<NativeStackRootStaticParamList>();
@@ -44,6 +48,7 @@ export function AppRoutes() {
               <Stack.Screen name="MeusCartoes" component={MeusCartoes} />
               <Stack.Screen name="Cartao" component={Cartao} />
               <Stack.Screen name="Perfil" component={Perfil} />
+              <Stack.Screen name="DrawerTeste" component={DrawerTeste} />
             {/* </Stack.Group>
           ) : (
             <Stack.Group> */}
@@ -56,3 +61,56 @@ export function AppRoutes() {
     </AuthProvider>
   );
 }
+
+type DrawerRootStaticParamList = {
+  Teste: undefined;
+  Login: undefined;
+  Perfil: undefined;
+};
+
+const Drawer = createDrawerNavigator<DrawerRootStaticParamList>();
+
+const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItem
+        label="Perfil"
+        onPress={() => props.navigation.navigate('Perfil')}
+      />
+      <DrawerItem
+        label="Sair"
+        onPress={() => props.navigation.navigate('Login')}
+      />
+    </DrawerContentScrollView>
+  );
+};
+
+const DrawerTeste: React.FC = () => {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator>
+        <Drawer.Screen name="Teste" component={Teste} />
+        <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="Perfil" component={Perfil} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
+
+type TesteNavigationProp = DrawerNavigationProp<DrawerRootStaticParamList, "Teste">;
+
+type Props = {
+  navigation: TesteNavigationProp;
+};
+
+const Teste: React.FC<Props> = ({ navigation }) => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Teste Drawer</Text>
+      <Button
+        title="Sair"
+        onPress={() => navigation.navigate("Login")}
+      />
+    </View>
+  );
+};
